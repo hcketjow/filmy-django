@@ -1,15 +1,12 @@
 body {
     padding: 2rem;
+    background-color: rgba(56, 46, 46, 0.274);
 }
 .film-plakat {
-    width: 150px;
     float: left;
 }
 .film-icon {
     font-size: 1.6rem;
-}
-.opis {
-    margin-left: 15px;
 }
 .card {
     width: 36rem;

@@ -3,42 +3,63 @@
 {% block tytul %} List filmów {% endblock %}
 
 {% block strona %}
-    <div class="jumbotron">
-        {% if user.is_authenticated %}
-        <h1 class="display-4"> Witaj {{ user.username }}</h1>
-        <hr>
-        <a href="{% url 'logout' %}" class="btn btn-success">Logout <i class="fas fa-sign-out-alt"></i></a>
-    {% else %}
-        <a href="{% url 'login' %}" class="btn btn-success">Login <i class="fas fa-sign-in-alt"></i></a>
-    {% endif %}
-    </div>
-
-    <a class="btn btn-success" href="{% url 'nowy_film' %}">Nowy film <i class="fas fa-plus-circle"></i></a>
+    <nav class="navbar navbar-dark bg-dark p-4">
+        <div class="container-fluid">
+            {% if user.is_authenticated %}
+                <h2 class="navbar-brand"> Witaj {{ user.username }}</h2>
+                <a href="{% url 'logout' %}" class="btn btn-success">Logout <i class="fas fa-sign-out-alt"></i></a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success">Login <i class="fas fa-sign-in-alt"></i></a>
+            {% endif %}
+        </div>
+    </nav>
     <hr>
+   
+    <a class="btn btn-success" href="{% url 'nowy_film' %}">Nowy film <i class="fas fa-plus-circle"></i></a>
+    <nav class="nav float-right">
+        <form method="GET" class="d-flex">     
+            <input class="form-control me-2" name="searched" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+            <!-- {% csrf_token %} -->
+        </form>
+    </nav>
+   
+    <hr>
+    
 
     {% if filmy|length == 0 %}
         <h2>Brak filmów</h2>
     {% else %}
         <!--<h2>Ilość filmów w BD: {{ filmy|length }}</h2>-->
-
-        {% for film in filmy %}
-            <div class="card">
-              <div class="card-body">
-                  <img src="/media/{{film.plakat}}" class="film-plakat">
-                  <div class="row">
-                      <div class="col-9">
-                        <h5 class="card-title">{{ film }}</h5>
+            {% for film in filmy %}
+                <div class="container-fluid">
+                    <div class="float-left" style="width:25%; height: 50%;">
+                        <div class="col-xs-3 p-5">
+                            <img src="/media/{{ film.plakat }}" class="film-plakat" style="height: 240px; width: 170px;">
+                            <div class="row">
+                                <div class="col p-3">
+                                    <h5 class="card-title">{{ film }}</h5>
+                                </div>
+                                <div class="col mb-3">
+                                    <a href="{% url 'edytuj_film' film.id %}"><i class="fas fa-2x fa-edit film-icon"></i></a>
+                                    <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt film-icon"></i></a>
+                                    <hr>
+                                    <div class="row-cols-3 float-left row-cols-xxl-3">
+                                        <p class="opis ">{{ film.opis }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <a href="{% url 'edytuj_film' film.id %}"><i class="fas fa-2x fa-edit film-icon"></i></a>
-                        <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt film-icon"></i></a>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <p class="card-text opis ml-3">{{ film.opis }}</p>
-                  </div>
-              </div>
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
     {% endif %}
+
+
+        {% for demo in queryset %}
+            <li>{{demo.tytul}}</li>
+            <span>OPIS: {{ demo.opis }}</span>
+        {% endfor %}
+
+
 {% endblock %}

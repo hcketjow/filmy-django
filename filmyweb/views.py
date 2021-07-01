@@ -1,10 +1,11 @@
+from re import search
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Film, DodatkoweInfo, Ocena
 from .forms import FilmForm, DodatkoweInfoForm, OcenaForm
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, FilmSerializer
+from .serializers import UserSerializer, FilmSerializer 
 
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -14,10 +15,19 @@ class FilmView(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
 
-
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
     return render(request, 'filmy.html', {'filmy': wszystkie})
+
+def search(request):
+    qs = Film.objects.all()
+    searched_query = request.GET.get('searched')
+    if searched_query != '' and searched_query is not None:
+        qs = qs.filter(search=searched_query)
+    context = {
+        'queryset': qs
+    }
+    return render(request, "filmy.html",context)
 
 @login_required
 def nowy_film(request):
@@ -37,7 +47,7 @@ def nowy_film(request):
 def edytuj_film(request, id):
     film = get_object_or_404(Film, pk=id)
     oceny = Ocena.objects.filter(film=film)
-    aktorzy = film.aktorzy.all()
+    # aktorzy = film.aktorzy.all()
 
     try:
         dodatkowe = DodatkoweInfo.objects.get(film=film.id)
@@ -48,7 +58,7 @@ def edytuj_film(request, id):
     form_dodatkowe = DodatkoweInfoForm(request.POST or None, instance=dodatkowe)
     form_ocena = OcenaForm(None)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         if 'gwiazdki' in request.POST:
             ocena = form_ocena.save(commit=False)
             ocena.film = film
@@ -61,7 +71,12 @@ def edytuj_film(request, id):
         film.save()
         return redirect(wszystkie_filmy)
 
-    return render(request, 'film_form.html', {'form': form_film, 'form_dodatkowe': form_dodatkowe, 'oceny': oceny, 'form_ocena': form_ocena, 'nowy': False})
+    return render(request, 'film_form.html', {
+        'form': form_film,
+        'form_dodatkowe': form_dodatkowe,
+        'oceny': oceny,
+        'form_ocena': form_ocena,
+        'nowy': False})
 
 @login_required
 def usun_film(request, id):

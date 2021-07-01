@@ -3,7 +3,11 @@
 {% block tytul %} Film form {% endblock %}
 
 {% block strona %}
-    <div class="card" style="width: 32rem; float: left; margin-right: 1rem;">
+    {% if nowy %}
+        <div class="container-fluid">
+    {% else %}
+        <div class="card" style="width: 52rem; float: left; margin-right: 1rem;">
+    {% endif %}
       <div class="card-body">
           {% if nowy %}
                 <h5 class="card-title">Nowy Film</h5>
@@ -38,9 +42,10 @@
     {% endif %}
 
     {% for ocena in oceny %}
-        <h4>Gwiazdki: {{ocena.gwiazdki}}</h4>
-        <p>{{ocena.recenzja}}</p>
+        <h4>Gwiazdki: {{ ocena.gwiazdki }}</h4>
+        <p>{{ ocena.recenzja }}</p>
     {% endfor %}
+    <hr>
+    <a class="btn btn-danger mb-4" style="float: right;" href="{% url 'wszystkie_filmy' %}">Cofnij</a>
 
-    <a class="btn btn-danger" href="{% url 'wszystkie_filmy' %}">Cofnij</a>
 {% endblock %}

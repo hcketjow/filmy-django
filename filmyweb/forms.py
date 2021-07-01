@@ -1,3 +1,5 @@
+from django.db.models import fields
+from django.db.models.fields import files
 from django.forms import ModelForm
 from .models import Film, DodatkoweInfo, Ocena
 
@@ -5,7 +7,6 @@ class FilmForm(ModelForm):
     class Meta:
         model = Film
         fields = ['tytul', 'opis', 'premiera', 'rok', 'imdb_rating', 'plakat']
-
 
 class DodatkoweInfoForm(ModelForm):
     class Meta:
