@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'filmyweb',
     "bootstrap5",
+    "django_popup_view_field"
 ]
 
 MIDDLEWARE = [
