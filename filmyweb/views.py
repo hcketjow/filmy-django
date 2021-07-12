@@ -1,4 +1,3 @@
-from re import search
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Film, DodatkoweInfo, Ocena
 from .forms import FilmForm, DodatkoweInfoForm, OcenaForm
@@ -6,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, FilmSerializer 
+from django.db.models import Q
+
 
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -15,19 +16,19 @@ class FilmView(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
 
+
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
-    return render(request, 'filmy.html', {'filmy': wszystkie})
+    query = request.GET.get('q')
 
-def search(request):
-    qs = Film.objects.all()
-    searched_query = request.GET.get('searched')
-    if searched_query != '' and searched_query is not None:
-        qs = qs.filter(search=searched_query)
-    context = {
-        'queryset': qs
+    if query != '' and query is not None:
+        wszystkie = wszystkie.filter(Q(tytul__icontains=query) | Q(rok__icontains=query))
+
+    context={
+        'filmy': wszystkie
     }
-    return render(request, "filmy.html",context)
+    
+    return render(request, 'filmy.html', context)
 
 @login_required
 def nowy_film(request):

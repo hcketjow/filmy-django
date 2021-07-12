@@ -6,7 +6,7 @@
     {% if nowy %}
         <div class="container-fluid">
     {% else %}
-        <div class="card" style="width: 52rem; float: left; margin-right: 1rem;">
+        <div class="card" style="width: 60rem; float: left; margin-right: 1rem;">
     {% endif %}
       <div class="card-body">
           {% if nowy %}
@@ -40,7 +40,7 @@
             </div>
         </div>
     {% endif %}
-
+    
     {% for ocena in oceny %}
         <h4>Gwiazdki: {{ ocena.gwiazdki }}</h4>
         <p>{{ ocena.recenzja }}</p>

@@ -16,16 +16,14 @@
     <hr>
    
     <a class="btn btn-success" href="{% url 'nowy_film' %}">Nowy film <i class="fas fa-plus-circle"></i></a>
-    <nav class="nav float-right">
-        <form method="GET" class="d-flex">     
-            <input class="form-control me-2" name="searched" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            <!-- {% csrf_token %} -->
+    <nav class="navbar navbar-light float-right">
+        <form class="form-inline" action="." method="GET" >
+          <input class="form-control mr-sm-2" type="search" name="q"  placeholder="Wyszukaj" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Szukaj</button>
         </form>
     </nav>
    
     <hr>
-    
 
     {% if filmy|length == 0 %}
         <h2>Brak filmów</h2>
@@ -44,7 +42,7 @@
                                     <a href="{% url 'edytuj_film' film.id %}"><i class="fas fa-2x fa-edit film-icon"></i></a>
                                     <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt film-icon"></i></a>
                                     <hr>
-                                    <div class="row-cols-3 float-left row-cols-xxl-3">
+                                    <div class="card-text">
                                         <p class="opis ">{{ film.opis }}</p>
                                     </div>
                                 </div>
@@ -53,13 +51,8 @@
                     </div>
                 </div>
             {% endfor %}
+            
     {% endif %}
-
-
-        {% for demo in queryset %}
-            <li>{{demo.tytul}}</li>
-            <span>OPIS: {{ demo.opis }}</span>
-        {% endfor %}
 
 
 {% endblock %}

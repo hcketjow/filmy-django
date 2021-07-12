@@ -7,15 +7,17 @@ class DodatkoweInfo(models.Model):
         (2, 'Komedia'),
         (3, 'Sci-fi'),
         (4, 'Drama'),
+        (5, 'Akcja'),
+        (5, 'Przygodowy'),
     }
 
     czas_trwania = models.PositiveSmallIntegerField(default=0)
     gatunek = models.PositiveSmallIntegerField(default=0, choices=GATUNEK)
 
 class Film(models.Model):
-    tytul = models.CharField(max_length=64, blank=False, unique=True)
+    tytul = models.CharField(max_length=64, blank=False, unique=True) 
     rok = models.PositiveSmallIntegerField(default=2000)
-    opis = models.TextField(default="", max_length=30)
+    opis = models.TextField(default="", max_length=230)
     premiera = models.DateField(null=True, blank=True)
     imdb_rating = models.DecimalField(max_digits=4, decimal_places=2,null=True, blank=True)
     plakat = models.ImageField(upload_to="plakaty", null=True, blank=True)

@@ -2,8 +2,9 @@
 
 {% block tytul %} Potwierdź {% endblock %}
 
-{% block strona %}
-    <div class="card" style="width: 32rem;">
+{% block strona %} 
+  <div class="container-fluid">
+    <div class="card text-center">
       <div class="card-body">
           <h5 class="card-title">Czy napewno chcesz usunac "{{ film.tytul }}" film?</h5>
           <form method="post">
@@ -12,6 +13,8 @@
         </form>
       </div>
     </div>
+  </div>
+    
 
-    <a href="{% url 'wszystkie_filmy' %}">Cofnij</a>
+  <a href="{% url 'wszystkie_filmy' %}" class="btn btn-success ml-3">Cofnij</a>
 {% endblock %}
