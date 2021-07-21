@@ -20,6 +20,7 @@ class FilmView(viewsets.ModelViewSet):
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
     query = request.GET.get('q')
+    
 
     if query != '' and query is not None:
         wszystkie = wszystkie.filter(Q(tytul__icontains=query) | Q(rok__icontains=query))
