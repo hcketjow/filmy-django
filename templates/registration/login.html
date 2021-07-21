@@ -3,15 +3,37 @@
 {% block tytul %} Zaloguj się {% endblock %}
 {% block strona %}
 
-    <div class="row">
-      <div class="col-4" style="margin-left: auto; margin-right: auto;">
-        <h5 style="font-size: 35px; text-align: center;">Zaloguj się</h5>
-        <form method="post">
-            {% csrf_token %}
-            {{ form|bootstrap }}
-            <br>  
-            <button type="submit" class="btn btn-primary" style="float: right;">Zaloguj się <i class="fas fa-sign-in-alt"></i></button>
-        </form>
+      <div class="row">
+        <div class="col-4" style="margin-left: auto; margin-right: auto;">
+          <h5 style="font-size: 35px; text-align: center;">Zaloguj się</h5>
+          <form method="post">
+              {% csrf_token %}
+              {{ form|bootstrap }}
+              <br>  
+              <button type="submit" class="btn btn-primary" style="float: right;">Zaloguj się <i class="fas fa-sign-in-alt"></i></button>
+          </form>
+        </div>
       </div>
-    </div>
+      <br><br>
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner rounded-pill">
+            <div class="carousel-item active">
+              <img src="https://niezlasztuka.net/wp-content/uploads/2020/10/banksy-5.jpg" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="https://bi.im-g.pl/im/56/61/19/z26614358V,-Achoo---czyli--Apsik----tak-brytyjskie-media-ochr.jpg" class="d-block w-100">
+            </div>
+            <div class="carousel-item">
+              <img src="https://niezlasztuka.net/wp-content/uploads/2020/10/banksy.jpg" class="d-block w-100">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      </div>
 {% endblock %}

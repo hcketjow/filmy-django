@@ -1,10 +1,10 @@
 body {
     padding: 2rem;
-    background-color: rgba(32, 26, 26, 0.24);
+    background-color: rgba(56, 46, 46, 0.24);
 }
-/* .film-plakat {
+.film-plakat {
     float: right;
-} */
+}
 .film-icon {
     font-size: 1.6rem;
 }
