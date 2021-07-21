@@ -4,13 +4,13 @@
 {% block strona %}
 
     <div class="row">
-      <div class="col-md-6">
-        <h5 style="font-size: 35px;">Zaloguj się</h5>
+      <div class="col-4" style="margin-left: auto; margin-right: auto;">
+        <h5 style="font-size: 35px; text-align: center;">Zaloguj się</h5>
         <form method="post">
             {% csrf_token %}
             {{ form|bootstrap }}
             <br>  
-            <button type="submit" class="btn btn-primary">Zaloguj się <i class="fas fa-sign-in-alt"></i></button>
+            <button type="submit" class="btn btn-primary" style="float: right;">Zaloguj się <i class="fas fa-sign-in-alt"></i></button>
         </form>
       </div>
     </div>

@@ -32,42 +32,42 @@
     {% else %}
         <!--<h2>Ilość filmów w BD: {{ filmy|length }}</h2>-->
         {% for film in filmy %}
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <img src="/media/{{ film.plakat }}" class="film-plakat rounded float-start p-1" style="height: 240px; width: 170px;">
-                            <h5 class="card-title p-3">{{ film }}</h5>
-                            {% if user.is_authenticated %}
-                                <br>
+            <div class="row ">
+                <div class="col-sm-6">
+                    <div class="card-body ">
+                        <img src="/media/{{ film.plakat }}" class="film-plakat rounded float-start p-1" style="height: 240px; width: 170px;">
+                        <h5 class="card-title p-3">{{ film }}</h5>
+                        {% if user.is_authenticated %}
+                            <br>
+                            <div style="margin-left: 22%;">
                                 <a href="{% url 'edytuj_film' film.id %}">
                                     <i class="fas fa-2x fa-edit film-icon"></i>
                                 </a>
                                 <a href="{% url 'usun_film' film.id %}"><i class="fas fa-2x fa-trash-alt film-icon"></i></a>       
-                            {% endif %}
-                            <br><br>
-                            <div class="modal fade" id="exampleModal{{film.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Opis filmu</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="/media/{{ film.plakat }}" class="film-plakat rounded float-start p-1" style="height: 240px; width: 170px;">
-                                            <br>
-                                            <p class="text-justify" style="margin-left: 40%;">{{ film.opis }}</p>                                            
-                                        </div>
+                            </div>
+                        {% endif %}
+                        <br><br>
+                        <div class="modal fade" id="exampleModal{{film.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Opis filmu</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="/media/{{ film.plakat }}" class="film-plakat rounded float-start p-1" style="height: 240px; width: 170px;">
+                                        <br>
+                                        <p class="text-justify" style="margin-left: 40%;">{{ film.opis }}</p>                                            
                                     </div>
                                 </div>
-                            </div>  
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{film.id}}" style="margin-left: 2%">
-                                Zobacz opis
-                            </button>
-                        </div>                
-                    </div>
-                </div>   
-            </div>
+                            </div>
+                        </div>  
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{film.id}}" style="margin-left: 2%; ">
+                            Zobacz opis
+                        </button>
+                    </div>                
+                </div>
+            </div>   
         {% endfor %}
     {% endif %}
     <nav aria-label="Page navigation example ">
