@@ -3,18 +3,18 @@
 {% block tytul %} Potwierdź {% endblock %}
 
 {% block strona %} 
-  <div class="container-fluid">
-    <div class="card text-center">
-      <div class="card-body">
-          <h5 class="card-title">Czy napewno chcesz usunac "{{ film.tytul }}" film?</h5>
+  <div class="row">
+    <div class="col-4" style="margin-left: auto; margin-right: auto;">
+          <h5 class="card-title text-capitalize" style="font-size: 50px">Czy napewno chcesz usunac "{{ film.tytul }}" film?</h5>
+          <br>
           <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Usun film</button>
+            <button type="submit" class="btn btn-danger p-4" style="font-size: large;">Usun film</button>
+            <a href="{% url 'wszystkie_filmy' %}" class="btn btn-success p-4" style="margin-left: 50%;">Cofnij</a>
         </form>
-      </div>
     </div>
   </div>
     
 
-  <a href="{% url 'wszystkie_filmy' %}" class="btn btn-success ml-3">Cofnij</a>
+ 
 {% endblock %}

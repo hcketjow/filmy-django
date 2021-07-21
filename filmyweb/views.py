@@ -1,3 +1,4 @@
+from django.core import paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Film, DodatkoweInfo, Ocena
 from .forms import FilmForm, DodatkoweInfoForm, OcenaForm
@@ -6,6 +7,7 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, FilmSerializer 
 from django.db.models import Q
+# from django.core.paginator import Paginator
 
 
 class UserView(viewsets.ModelViewSet):
@@ -16,17 +18,18 @@ class FilmView(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
 
-
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
     query = request.GET.get('q')
+    # film_paginator = Paginator(wszystkie, 6)
+    # page_number = request.GET.get('page')
+    # page_obj = film_paginator.get_page(page_number)
     
-
     if query != '' and query is not None:
         wszystkie = wszystkie.filter(Q(tytul__icontains=query) | Q(rok__icontains=query))
 
     context={
-        'filmy': wszystkie
+        'filmy': wszystkie,
     }
     
     return render(request, 'filmy.html', context)
