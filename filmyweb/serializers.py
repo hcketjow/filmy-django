@@ -10,4 +10,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class FilmSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Film
-        fields = ['id','tytul','rok', 'opis', 'premiera']
+        fields = ['id','tytul','rok', 'opis', 'premiera','rezyseria']

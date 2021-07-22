@@ -1,0 +1,81 @@
+{% extends 'glowny.html' %}
+{% load bootstrap %}
+{% block tytul %} Lista {% endblock %}
+{% block strona %}
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dzila" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'wszystkie_filmy' %}">FILMY</a>
+            <div class="collapse navbar-collapse" id="dzila">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'lista_film' %}">Zobacz liste</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                            <!-- <li class="nav-item">
+                                <h2 class="navbar-brand"> Witaj {{ user.username }}</h2>
+                            </li> -->
+                            <a href="{% url 'logout' %}" class="btn btn-success">Wyloguj się <i class="fas fa-sign-out-alt"></i></a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-success">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
+                        {% endif %}
+                    </li>
+                </ul>
+                <form class="d-flex" action="." method="GET" >
+                    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Wyszukaj" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                </form> 
+            </div>
+        </div>
+    </nav>
+    <br>
+   
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th>Tytul</th>
+                <th>Opis</th>
+                <th>Rok wydania</th>
+                <th>Reżyseria</th>
+                <th>Scenariusz</th>
+                <th>Kraj produkcji</th>
+                <th>EDYTUJ</th>
+                <th>USUN</th>
+            </tr>
+        </thead>
+        {% if lista|length == 0 %}
+            <h2>Brak filmów</h2>
+        {% else %}
+            {% for film in lista %} 
+                <tbody>
+                    <tr>
+                        <th scope="col" class="fw-lighter">
+                            {{film.tytul}}
+                            <br><br>
+                            <img src="/media/{{ film.plakat }}" width="80" height="80">
+                        </th>
+                        <th scope="col" class= "col-6 fw-lighter">{{film.opis}}</th>
+                        <th scope="col" class="fw-lighter">{{film.rok}}</th>
+                        <th scope="col" class="fw-lighter">{{film.rezyseria}}</th>
+                        <th scope="col" class="fw-lighter">{{film.scenaruisz}}</th>
+                        <th scope="col" class="fw-lighter">{{film.produkcja}}</th>
+                        <th scope="col" class="fw-lighter"><a href="{% url 'edytuj_film' film.id %}"><i class="far fa-edit"></i></a></th>
+                        <th scope="col" class="fw-lighter"><a href="{% url 'usun_film' film.id %}"><i class="fas fa-trash-alt"></i></a></th>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        {% endif %}
+    </table>
+    
+
+{% endblock %}

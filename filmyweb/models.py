@@ -8,7 +8,7 @@ class DodatkoweInfo(models.Model):
         (3, 'Sci-fi'),
         (4, 'Drama'),
         (5, 'Akcja'),
-        (5, 'Przygodowy'),
+        (6, 'Przygodowy'),
     }
 
     czas_trwania = models.PositiveSmallIntegerField(default=0)
@@ -22,6 +22,10 @@ class Film(models.Model):
     imdb_rating = models.DecimalField(max_digits=4, decimal_places=2,null=True, blank=True)
     plakat = models.ImageField(upload_to="plakaty", null=True, blank=True)
     dodatkowe = models.OneToOneField(DodatkoweInfo, on_delete=models.CASCADE, null=True, blank=True)
+    rezyseria = models.CharField(default="", max_length=100)
+    scenaruisz = models.CharField(default="", max_length=100)
+    produkcja = models.CharField(default="", max_length=100)
+    
 
     def __str__(self):
         return self.tytul_z_rokiem()
@@ -35,7 +39,6 @@ class Ocena(models.Model):
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
 class Aktor(models.Model):
-
     imie = models.CharField(max_length=32)
     nazwisko = models.CharField(max_length=32)
     filmy = models.ManyToManyField(Film, related_name="aktorzy")

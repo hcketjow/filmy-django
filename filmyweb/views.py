@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, FilmSerializer 
-from django.db.models import Q
+from django.db.models import Q, query
 # from django.core.paginator import Paginator
 
 
@@ -17,6 +17,9 @@ class UserView(viewsets.ModelViewSet):
 class FilmView(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
+
+
+
 
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
@@ -92,6 +95,21 @@ def usun_film(request, id):
         return redirect(wszystkie_filmy)
 
     return render(request, 'potwierdz.html', {'film': film})
+
+@login_required
+def lista_film(request):
+    lista = Film.objects.all()
+    szukaj = request.GET.get('q')
+
+    if szukaj != '' and szukaj is not None:
+        lista = lista.filter(Q(tytul__icontains=szukaj) | Q(rok__icontains=szukaj))
+
+    context={
+        'lista': lista,
+    }
+
+
+    return render(request, 'lista.html',context)
 
 # Create
 # Read
