@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from rest_framework import routers
-from filmyweb.views import UserView, FilmView
+from filmyweb.views import  UserView, FilmView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserView)

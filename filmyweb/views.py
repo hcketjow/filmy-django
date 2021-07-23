@@ -1,5 +1,6 @@
 from django.core import paginator
 from django.shortcuts import render, get_object_or_404, redirect
+from rest_framework.fields import EmailField
 from .models import Film, DodatkoweInfo, Ocena
 from .forms import FilmForm, DodatkoweInfoForm, OcenaForm
 from django.contrib.auth.decorators import login_required
@@ -7,8 +8,7 @@ from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, FilmSerializer 
 from django.db.models import Q, query
-# from django.core.paginator import Paginator
-
+from django.core.paginator import EmptyPage, PageNotAnInteger,Paginator
 
 class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -19,20 +19,28 @@ class FilmView(viewsets.ModelViewSet):
     serializer_class = FilmSerializer
 
 
-
-
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
-    query = request.GET.get('q')
-    # film_paginator = Paginator(wszystkie, 6)
-    # page_number = request.GET.get('page')
-    # page_obj = film_paginator.get_page(page_number)
-    
-    if query != '' and query is not None:
-        wszystkie = wszystkie.filter(Q(tytul__icontains=query) | Q(rok__icontains=query))
+    query = request.GET.get('q')    
+
+    if query:
+        wszystkie = Film.objects.filter(
+            Q(tytul__icontains=query) | Q(rok__icontains=query) |
+            Q(rezyseria__icontains=query) | Q(scenaruisz__icontains=query) |
+            Q(produkcja__icontains=query)
+        ).distinct()
+    paginator = Paginator(wszystkie,6)
+    page = request.GET.get('page')
+
+    try: 
+        films = paginator.page(page)
+    except PageNotAnInteger: 
+        films = paginator.page(1)
+    except EmptyPage: 
+        films = paginator.page(paginator.num_pages)
 
     context={
-        'filmy': wszystkie,
+        'filmy': films,
     }
     
     return render(request, 'filmy.html', context)

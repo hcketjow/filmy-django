@@ -35,7 +35,7 @@
                     </li>
                 </ul>
                 <form class="d-flex" action="." method="GET" >
-                    <input class="form-control mr-sm-2" type="search" name="q"  placeholder="Wyszukaj" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" name="q"  placeholder="Wyszukaj" aria-label="Search" value="{{ request.GET.q }}">
                     <button class="btn btn-outline-success" type="submit">Szukaj</button>
                 </form> 
             </div>
@@ -51,7 +51,7 @@
     {% if filmy|length == 0 %}
         <h2>Brak filmów</h2>
     {% else %}
-        <!--<h2>Ilość filmów w BD: {{ filmy|length }}</h2>-->
+        <!-- <h2>Ilość filmów w BD: {{ filmy|length }}</h2>--> 
     {% for film in filmy %}  
         <div class="card-gruop" style="display:inline-block;">
             <div class="card bg-dark text-white mb-3 rounded">
@@ -95,8 +95,48 @@
                 </div>                
             </div>    
         </div>
+        
        
-    {% endfor %}
+    {% endfor %} 
+
+        {% if filmy.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if filmy.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ filmy.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                <i class="material-icons">Previous</i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled page-item">
+                            <a class="page-link" href="#!">
+                                <i class="material-icons">Previous</i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for num in filmy.paginator.page_range %}
+                        {% if filmy.number == num %}
+                            <li class="active page-item"><a  class="page-link" href="#!">{{ num }}</a></li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if filmy.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ filmy.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
+                                <i class="material-icons">Next</i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled page-item"><a class="page-link" href="#!"><i class="material-icons">Next</i></a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
     {% endif %}
 {% endblock %}
 
