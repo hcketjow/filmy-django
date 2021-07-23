@@ -109,11 +109,24 @@ def lista_film(request):
     lista = Film.objects.all()
     szukaj = request.GET.get('q')
 
-    if szukaj != '' and szukaj is not None:
-        lista = lista.filter(Q(tytul__icontains=szukaj) | Q(rok__icontains=szukaj))
+    if szukaj:
+        lista = Film.objects.filter(
+            Q(tytul__icontains=szukaj) | Q(rok__icontains=szukaj) |
+            Q(rezyseria__icontains=szukaj) | Q(scenaruisz__icontains=szukaj) |
+            Q(produkcja__icontains=szukaj)
+        ).distinct()
+
+    paginator = Paginator(lista,6)
+    page = request.GET.get('page')
+    try: 
+        lists = paginator.page(page)
+    except PageNotAnInteger: 
+        lists = paginator.page(1)
+    except EmptyPage: 
+        lists = paginator.page(paginator.num_pages)
 
     context={
-        'lista': lista,
+        'lista': lists,
     }
 
 
