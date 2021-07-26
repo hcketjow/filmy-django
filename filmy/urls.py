@@ -8,7 +8,7 @@ from rest_framework import routers
 from filmyweb.views import  UserView, FilmView
 
 router = routers.DefaultRouter()
-router.register(r'users', UserView)
+# router.register(r'users', UserView)
 router.register(r'filmy', FilmView)
 
 urlpatterns = [

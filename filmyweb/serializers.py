@@ -5,9 +5,9 @@ from .models import Film
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['id','username', 'email']
+        fields = ['']
 
 class FilmSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Film
-        fields = ['id','tytul','rok', 'opis', 'premiera','rezyseria']
+        fields = ['id','tytul','rok', 'opis','rezyseria']

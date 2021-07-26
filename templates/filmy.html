@@ -54,14 +54,14 @@
         <!-- <h2>Ilość filmów w BD: {{ filmy|length }}</h2>--> 
     {% for film in filmy %}  
         <div class="card-gruop" style="display:inline-block;">
-            <div class="card bg-dark text-white mb-3 rounded">
+            <div class="card bg-dark text-white mb-3 rounded ">
                 <div class="card-body">
                     <img src="/media/{{ film.plakat }}" class="film-plakat p-1" style="height: 240px; width: 170px;">
                     <h5 class="card-title p-3" style="margin-left:200px;">{{ film }}</h5>
                     <ul style="float: right; font-size: 12px;" class="list-group">
                         <li class="list-group-item list-group-item-dark">Reżyseria: {{film.rezyseria}} </li>
                         <li class="list-group-item list-group-item-dark ">Scenariusz: {{film.scenaruisz}} </li>
-                        <li class="list-group-item list-group-item-dark">Gatunek: {{film.dodatkowe.Gatunek}}</li>
+                        <li class="list-group-item list-group-item-dark">Gatunek: {{film.gatunek}}</li>                        
                         <li class="list-group-item list-group-item-dark">Produkcja: {{film.produkcja}} </li>
                     </ul>
                     {% if user.is_authenticated %}
@@ -136,6 +136,7 @@
                 </ul>
             </nav>
         {% endif %}
+        
 
     {% endif %}
 {% endblock %}

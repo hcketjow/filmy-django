@@ -1,6 +1,7 @@
+from django.contrib.auth import views
 from django.urls import path
 # from .views import SearchResultsView
-from filmyweb.views import wszystkie_filmy, nowy_film, edytuj_film, usun_film,lista_film
+from filmyweb.views import wszystkie_filmy, nowy_film, edytuj_film, usun_film,lista_film,export_excel
 
 urlpatterns = [
     # wszystkie/
@@ -9,5 +10,6 @@ urlpatterns = [
     path('edytuj/<int:id>/', edytuj_film, name="edytuj_film"),
     path('usun/<int:id>/', usun_film, name="usun_film"),
     path('lista/', lista_film, name="lista_film"),
+    path('export_excel', export_excel, name='export_excel'),
     # path('search/', SearchResultsView.as_view(), name='search_results'),
 ]

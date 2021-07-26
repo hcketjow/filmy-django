@@ -18,7 +18,6 @@ class Film(models.Model):
     tytul = models.CharField(max_length=64, blank=False, unique=True) 
     rok = models.PositiveSmallIntegerField(default=2000)
     opis = models.TextField(default="", max_length=1000)
-    premiera = models.DateField(null=True, blank=True)
     imdb_rating = models.DecimalField(max_digits=4, decimal_places=2,null=True, blank=True)
     plakat = models.ImageField(upload_to="plakaty", null=True, blank=True)
     dodatkowe = models.OneToOneField(DodatkoweInfo, on_delete=models.CASCADE, null=True, blank=True)
