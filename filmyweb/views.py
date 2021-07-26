@@ -1,5 +1,6 @@
-import datetime
+from django.core import serializers
 from django.core import paginator
+from django.core.serializers import serialize
 from django.http import response
 from django.http.request import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
@@ -139,35 +140,10 @@ def lista_film(request):
     return render(request, 'lista.html',context)
 
 
-def export_users_xls(request):
-    response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="users.xls"'
-
-    wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Films')
-
-    # Sheet header, first row
-    row_num = 0
-
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
-
-    columns = ['Tytul', 'Rok', 'Opis', 'Rezyseria', 'Scenaruisz', 'Produkcja']
-
-    for col_num in range(len(columns)):
-        ws.write(row_num, col_num, columns[col_num], font_style)
-
-    # Sheet body, remaining rows
-    font_style = xlwt.XFStyle()
-
-    rows = User.objects.all().values_list('tytul', 'rok', 'opis', 'rezyseria', 'scenaruisz', 'produkcja')
-    for row in rows:
-        row_num += 1
-        for col_num in range(len(row)):
-            ws.write(row_num, col_num, row[col_num], font_style)
-
-    wb.save(response)
-    return response
+def export_xml(request):
+    queryset = Film.objects.all()
+    queryset = serializers.serialize('xml',queryset)
+    return HttpResponse(queryset, content_type="application/xml")
 
 
 def export_excel(request):
