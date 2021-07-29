@@ -1,23 +1,27 @@
 {% extends 'glowny.html' %}
-
 {% block tytul %} List filmów {% endblock %}
+{% load bootstrap %}
 {% load static %}
 {% block scripts %}
     <script src="{% static 'next.js' %}" defer></script>
 {% endblock scripts %}
 
 {% block strona %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-4">
+    
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-dark p-4 ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dzila" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'wszystkie_filmy' %}">FILMY</a>
+            <a class="navbar-brand" href="{% url 'wszystkie_filmy' %}"><img height="60px" src="/media/plakaty/icon.png" alt=""></a>
             <div class="collapse navbar-collapse" id="dzila">
+                <form class="form-floating col mt-3" action="." method="GET" >
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="search" name="q"  placeholder="Wyszukaj" aria-label="Search" value="{{ request.GET.q }}">
+                        <label for="floatingInput">Szukaj filmu, serialu</label>
+                    </div>
+                </form>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
                     {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'lista_film' %}">Zobacz liste</a>
@@ -28,19 +32,16 @@
                             <!-- <li class="nav-item">
                                 <h2 class="navbar-brand"> Witaj {{ user.username }}</h2>
                             </li> -->
-                            <a href="{% url 'logout' %}" class="btn btn-success">Wyloguj się <i class="fas fa-sign-out-alt"></i></a>
+                            <a href="{% url 'logout' %}" class="btn btn-danger">Wyloguj się <i class="fas fa-sign-out-alt"></i></a>
                         {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-success">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
+                            <a href="{% url 'login' %}" class="btn btn-success" style="margin-left: 14px;">Zaloguj się <i class="fas fa-sign-in-alt"></i></a>
                         {% endif %}
                     </li>
-                </ul>
-                <form class="d-flex" action="." method="GET" >
-                    <input class="form-control mr-sm-2" type="search" name="q"  placeholder="Wyszukaj" aria-label="Search" value="{{ request.GET.q }}">
-                    <button class="btn btn-outline-success" type="submit">Szukaj</button>
-                </form> 
+                </ul> 
             </div>
         </div>
     </nav>
+    <br><br><br><br>
     <hr>
     {% if user.is_authenticated %}
         <a class="btn btn-success mb-5" href="{% url 'nowy_film' %}">Nowy film <i class="fas fa-plus-circle"></i></a>
@@ -56,7 +57,31 @@
         <div class="card-gruop" style="display:inline-block;">
             <div class="card bg-dark text-white mb-3 rounded ">
                 <div class="card-body">
-                    <img src="/media/{{ film.plakat }}" class="film-plakat p-1" style="height: 240px; width: 170px;">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#MovieModal{{film.id}}">
+                        <img src="/media/{{ film.plakat }}" class="film-plakat p-1" style="height: 240px; width: 170px;">
+                    </a>
+                    <div class="modal fade" style="color: black;" id="MovieModal{{film.id}}" tabindex="-1" aria-labelledby="MovieModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="MovieModalLabel">ZWIASTUN</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe 
+                                        style="margin-left: 180px;"
+                                        width="800" 
+                                        height="515" 
+                                        src="https://www.youtube.com/embed/sY1S34973zA" 
+                                        title="YouTube video player" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h5 class="card-title p-3" style="margin-left:200px;">{{ film }}</h5>
                     <ul style="float: right; font-size: 12px;" class="list-group">
                         <li class="list-group-item list-group-item-dark">Reżyseria: {{film.rezyseria}} </li>

@@ -1,10 +1,16 @@
-body {
+body{
     padding: 2rem;
-    background-color: rgba(56, 46, 46, 0.24);
+    background-image: url(kino.png);
 }
 .film-plakat {
     float: left;
+    transition: transform 0.2s ease-in-out;
 }
+
+.film-plakat:hover {
+    transform: scale(0.9);
+}
+
 .film-icon {
     font-size: 1.6rem;
 }

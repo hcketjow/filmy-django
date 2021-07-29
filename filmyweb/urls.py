@@ -11,6 +11,6 @@ urlpatterns = [
     path('usun/<int:id>/', usun_film, name="usun_film"),
     path('lista/', lista_film, name="lista_film"),
     path('export_excel', export_excel, name='export_excel'),
-    path('export_xml', export_xml, name='export_xml'),
+    path('export_xml', export_xml, name='export_xml')
     # path('search/', SearchResultsView.as_view(), name='search_results'),
 ]
