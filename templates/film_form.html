@@ -8,7 +8,7 @@
     {% else %}
         <div class="card" style="width: 60rem; float: left; margin-right: 1rem;">
     {% endif %}
-        <div class="card-body">
+        <div class="card-body bg-dark text-light">
           {% if nowy %}
                 <h5 class="card-title">Nowy Film</h5>
             {% else %}
@@ -33,11 +33,12 @@
 
     {% if form_ocena %}
         <div class="card" style="width: 32rem offset-col">
-            <div class="card-body">
+            <div class="card-body bg-dark text-light">
                 <h5 class="card-title">Ocen film</h5>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form_ocena|bootstrap }}
+                        <br>
                         <button type="submit" class="btn btn-primary">Oceń</button>
                 </form>
             </div>
