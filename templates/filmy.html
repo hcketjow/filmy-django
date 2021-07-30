@@ -1,6 +1,7 @@
 {% extends 'glowny.html' %}
 {% block tytul %} Strona Główna filmów {% endblock %}
 {% load bootstrap %}
+{% load embed_video_tags %}
 {% load static %}
 {% block scripts %}
     <script src="{% static 'next.js' %}" defer></script>
@@ -46,14 +47,14 @@
 
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner rounded">
-            <div class="carousel-item active">
+            <div class="carousel-item active text-center">
                 <img height="600px" src="https://www.orange.pl/poradnik/wp-content/uploads/2021/01/filmy-2021-%E2%80%94-kopia.jpg" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img height="600px" src="https://rynekisztuka.pl/wp-content/uploads/2012/02/beksinski1.jpg" class="d-block w-100">
+                <img height="600px" src="https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-leisure-time-cinema-watching-movie-background-template-image_190123.jpg" class="d-block w-100">
             </div>
             <div class="carousel-item">
-                <img height="600px" src="https://boszart.pl/wp-content/uploads/2014/07/544-Zdzislaw-Beksinski-plakat-600x720.jpg" class="d-block w-100">
+                <img height="600px" src="https://warsawnow.pl/wp-content/uploads/2020/02/kino-plenerowe.jpg" class="d-block w-100">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
@@ -99,11 +100,7 @@
                                         style="margin-left: 180px;"
                                         width="800" 
                                         height="515" 
-                                        src="https://www.youtube.com/embed/sY1S34973zA" 
-                                        title="YouTube video player" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                        allowfullscreen>
+                                        {% video film.video %}>
                                     </iframe>
                                 </div>
                             </div>
@@ -190,7 +187,7 @@
         {% endif %}
     {% endif %}
     <footer class="bg-dark text-center text-white">
-        <div class="container-fluid p-5 footer">
+        <div class="container-fluid mx-auto p-5">
             <section class="mb-4">
                 <a class="btn btn-outline-light btn-floating m-1" target="blank" href="https://pl-pl.facebook.com/InstytutFilmowy/" role="button">
                     <i class="fab fa-facebook-f"></i>

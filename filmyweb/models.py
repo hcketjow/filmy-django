@@ -1,4 +1,5 @@
 from django.db import models
+from embed_video.fields import EmbedVideoField
 
 class DodatkoweInfo(models.Model):
     GATUNEK = {
@@ -24,6 +25,7 @@ class Film(models.Model):
     rezyseria = models.CharField(default="", max_length=100)
     scenaruisz = models.CharField(default="", max_length=100)
     produkcja = models.CharField(default="", max_length=100)
+    video = EmbedVideoField(default="")
     
 
     def __str__(self):

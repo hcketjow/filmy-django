@@ -1,6 +1,9 @@
 body{
-    padding: 2rem;
+    
     background-image: url(kino.png);
+    margin:0;
+    padding:0;
+    height:100%;
 }
 .film-plakat {
     float: left;
