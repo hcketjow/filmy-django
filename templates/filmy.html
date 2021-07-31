@@ -75,8 +75,8 @@
     {% endif %}
 
         <p>
-            <button class="btn btn-primary" style="margin-left: 20px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Filtering <i></i>
+            <button class="btn btn-success" style="margin-left: 20px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Filtry <i class="fas fa-filter"></i>
             </button>
         </p>
         <div class="collapse" id="collapseExample" style="margin-left: 20px;">
@@ -84,16 +84,16 @@
                 <form class="row g-3 needs-validation" method="GET" action="." novalidate>
                     <div class="col-md-3">
                         <label for="validationCustom04" class="form-label">State</label>
-                        <select class="form-select" id="validationCustom04" required>
+                        <select class="form-select"name="rok" id="validationCustom04" required>
                             <option selected disabled value="">Rok powstania filmu</option>
                             {% for film in filmy %}
-                                <option  name="rok">{{film.rok}}</option>
+                                <option >{{film.rok}}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="validationCustom04" class="form-label">State</label>
-                        <select class="form-select" id="validationCustom04" required>
+                        <select class="form-select" name="rezyser" id="validationCustom04" required>
                             <option selected disabled value="">Reżyser filmu</option>
                             {% for film in filmy %}
                                 <option>{{film.rezyseria}}</option>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="validationCustom04" class="form-label">State</label>
-                        <select class="form-select" id="validationCustom04" required>
+                        <select class="form-select" name="film_szuk" id="validationCustom04" required>
                             <option selected disabled value="">Filmy</option>
                             {% for film in filmy %}
                                 <option>{{film.tytul}}</option>
@@ -111,7 +111,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="validationCustom04" class="form-label">State</label>
-                        <select class="form-select" id="validationCustom04" required>
+                        <select class="form-select" name="scen_szukaj" id="validationCustom04" required>
                             <option selected disabled value="">Scenarzysta filmu</option>
                             {% for film in filmy %}
                                 <option>{{film.scenaruisz}}</option>
@@ -119,7 +119,7 @@
                         </select>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Wyszukaj</button>
                     </div>
                 </form>
             </div>
@@ -265,7 +265,7 @@
             </section>
         </div>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2020 Wojciech Chodasiewicz - Wszystkie prawa zastrzeżone
+            © 2021 Wojciech Chodasiewicz - Wszystkie prawa zastrzeżone
         </div>
     </footer>
 {% endblock %}

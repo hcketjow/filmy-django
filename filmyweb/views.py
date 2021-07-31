@@ -25,10 +25,13 @@ class FilmView(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
 
-
 def wszystkie_filmy(request):
     wszystkie = Film.objects.all()
-    query = request.GET.get('q')    
+    query = request.GET.get('q')
+    rok_powstania = request.GET.get('rok')    
+    rezyseria_szukaj = request.GET.get('rezyser')
+    filmy_szukaj = request.GET.get('film_szuk')
+    scenariusz_szukaj = request.GET.get('scen_szukaj')
 
     if query:
         wszystkie = Film.objects.filter(
@@ -36,6 +39,16 @@ def wszystkie_filmy(request):
             Q(rezyseria__icontains=query) | Q(scenaruisz__icontains=query) |
             Q(produkcja__icontains=query)
         ).distinct()
+    if rok_powstania:
+        wszystkie = Film.objects.filter(rok__icontains=rok_powstania).distinct()
+    if rezyseria_szukaj:
+        wszystkie = Film.objects.filter(rezyseria__icontains=rezyseria_szukaj).distinct()
+    if filmy_szukaj:
+        wszystkie = Film.objects.filter(tytul__icontains=filmy_szukaj).distinct()
+    if scenariusz_szukaj:
+        wszystkie = Film.objects.filter(scenaruisz__icontains=scenariusz_szukaj).distinct()
+
+
     paginator = Paginator(wszystkie,6)
     page = request.GET.get('page')
 
